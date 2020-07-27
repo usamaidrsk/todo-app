@@ -10,26 +10,26 @@
       </div>
     </div>
     <template v-else>
-    <div class="row">
+    <div class="row subtitles" >
         <div class="col font-weight-bold">Task</div>
-        <div class="col-2 font-weight-bold">Done</div>
+        <div class="col-2 font-weight-bold addbtn">Done</div>
     </div>
     <div class="row" v-for="t in filteredtasks" :key="t.action">
-        <div class="col">{{t.action}}</div>
-        <div class="col-2">
+        <div class="col tototitle">{{t.action}}</div>
+        <div class="col-2 checkers">
           <input type="checkbox" v-model="t.done" class="form-check-input" />
         </div>
     </div>
     </template>
     <form class="row py-2" @submit.prevent="addNewTodo">
       <div class="col">
-        <input v-model="newItemText" class="form-control" />
+        <input v-model="newItemText" class="form-control addtext" />
       </div>
-      <div class="col-2">
-        <button class="btn btn-primary" >Add</button>
+      <div class="col-2 addbtn">
+        <button class="btn btn-primary addbtn" >Add</button>
       </div>
     </form>
-    <div class="row bg-secondary py-2 mt-2 text-white">
+    <div class="row bg-secondary py-2 mt-2 text-white footer">
       <div class="col text-center">
         <input type="checkbox" v-model="hidecompleted" class="form-check-input" />
         <label class="form-check-label font-weight-bold">Hide completed tasks</label>
@@ -48,7 +48,7 @@
     name: 'app',
     data(){
       return {
-        user: "Usama",
+        user: "User",
         tasks: [],
         hidecompleted: true,
         newItemText: ""
@@ -61,12 +61,14 @@
     },
     methods: {
       addNewTodo () {
+        if (this.newItemText){
         this.tasks.push(
           {
             action: this.newItemText,
             done: false
           }
         );
+        }
         this.storeData();
         this.newItemText = "";
       },
@@ -87,10 +89,34 @@
     }
 </script>
 <style >
-
+  :root{
+    /*box-sizing: border-box; */
+    font-size: calc(0.6em + .7vw);
+  }
   #app{
     max-width: 800px;
     margin: 5em auto auto;
     border: 1em solid grey;
+  }
+  .row{
+    margin: .8rem;
+  }
+  .subtitles{
+    font-size: 1.3rem;
+  }
+  .tototitle{
+    margin-left: .8rem;
+  }
+  .checkers{
+    margin-left: 3.5rem;
+  }
+  .addtext{
+    min-width: 80%;
+  }
+  .addbtn{
+    margin-right: 1.5em;
+  }
+  .footer{
+    padding: .5em;
   }
 </style>
